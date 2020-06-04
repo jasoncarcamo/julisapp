@@ -22,7 +22,7 @@ export default class SignOut extends React.Component{
             .then( tokenDeleted => {
                 this.context.signoutAdmin()
                     .then( signedOut => {
-                        this.props.navigation.navigate("Log in")
+                        this.props.navigation.navigate("Log in menu");
                     })
             })
     }

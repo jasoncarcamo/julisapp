@@ -13,6 +13,7 @@ export default class Login extends React.Component{
         this.state = {
             email: "",
             password: "",
+            loading: false,
             error: ""
         }
     }
@@ -32,6 +33,10 @@ export default class Login extends React.Component{
     };
 
     handleLogin = ()=>{
+        this.setState({
+            loading: true
+        });
+
         fetch("https://vast-atoll-11346.herokuapp.com/api/login", {
             method: "POST",
             headers: {
@@ -56,18 +61,22 @@ export default class Login extends React.Component{
                     .then( savedToken => {
                         this.context.loginAdmin()
                             .then( loggedIn => {
-                                
+                                this.setState({
+                                    loading: false
+                                })
                             });
                     });
             })
             .catch( err => {
                 this.setState({
-                    error: err.error
+                    error: err.error,
+                    loading: false
                 });
             })
-    }
+    };
 
-    renderView = ()=>{
+    render(){
+        
         return (
             <View>
 
@@ -90,26 +99,15 @@ export default class Login extends React.Component{
                     onChangeText={this.handlePassword}
                     value={this.state.password}></TextInput>
 
+                {this.state.error ? <Text>{this.state.error}</Text> : <View></View>}
+
+                {this.state.loading ? <Text>Loading</Text> : <View></View>}
+
                 <Button
                     title="Log in"
                     onPress={this.handleLogin}></Button>
 
             </View>
-        )
-    }
-
-    render(){
-        
-        return (
-            <Stack.Navigator
-                initialRouteName="Log in">
-                <Stack.Screen
-                    name="Log in"
-                    component={this.renderView}
-                    options={{
-                        headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>
-                    }}></Stack.Screen>
-            </Stack.Navigator>
         )
     }
 }

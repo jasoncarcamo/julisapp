@@ -1,6 +1,7 @@
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
-import {createDrawerNavigator} from "@react-navigation/drawer"
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import {createStackNavigator} from "@react-navigation/stack";
 import AdminToken from "../services/AdminToken/AdminToken";
 import AppContext from "../services/contexts/AppContext/AppContext";
 
@@ -12,6 +13,9 @@ import BookingsContainer from "../components/BookingsContainer/BookingsContainer
 import SignOut from "../components/SignOut/SignOut";
 
 const Drawer = createDrawerNavigator();
+const Stack = createDrawerNavigator();
+
+
 
 export default class NavMenu extends React.Component{
     constructor(props){
@@ -24,6 +28,20 @@ export default class NavMenu extends React.Component{
     static contextType = AppContext;
 
     componentDidMount(){
+    }
+
+    renderLoginView = ()=>{
+        return (
+            <Stack.Navigator
+                initialRouteName="Log in">
+                <Stack.Screen
+                    name="Log in"
+                    component={Login}
+                    options={{
+                        headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>
+                    }}></Stack.Screen>
+            </Stack.Navigator>
+        )
     }
 
     renderLoggedInOptions = ()=>{
@@ -50,10 +68,10 @@ export default class NavMenu extends React.Component{
 
     renderLogIn = ()=>{
         return <Drawer.Screen
-        name="Log in"
-        component={Login}
+        name="Log in menu"
+        component={this.renderLoginView}
         options={{
-            
+            title: "Log In"
         }}></Drawer.Screen>;
     }
 
