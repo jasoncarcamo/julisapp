@@ -5,9 +5,11 @@ import AdminToken from "../services/AdminToken/AdminToken";
 import AppContext from "../services/contexts/AppContext/AppContext";
 
 //Import components here
+import MenuIcon from "../components/MenuIcon/MenuIcon";
 import Login from "../components/Login/Login";
 import ContactsContainer from "../components/ContactsContainer/ContactsContainer";
 import BookingsContainer from "../components/BookingsContainer/BookingsContainer";
+import SignOut from "../components/SignOut/SignOut";
 
 const Drawer = createDrawerNavigator();
 
@@ -34,6 +36,14 @@ export default class NavMenu extends React.Component{
                 <Drawer.Screen
                     name="Contacts Menu"
                     component={ContactsContainer}></Drawer.Screen>
+
+                <Drawer.Screen
+                    name="Sign Out Menu"
+                    component={SignOut}
+                    options={{
+                        
+                        title: "Sign Out"
+                    }}></Drawer.Screen>
             </>
         )
     }
@@ -41,14 +51,16 @@ export default class NavMenu extends React.Component{
     renderLogIn = ()=>{
         return <Drawer.Screen
         name="Log in"
-        component={Login}></Drawer.Screen>;
+        component={Login}
+        options={{
+            
+        }}></Drawer.Screen>;
     }
 
     render(){
         
         return (
-            <Drawer.Navigator
-                initialRouteName="Log in">
+            <Drawer.Navigator>
                     {this.context.isLoggedIn ? this.renderLoggedInOptions() : this.renderLogIn()}
             </Drawer.Navigator>
         )

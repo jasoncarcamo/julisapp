@@ -99,7 +99,7 @@ export class AppProvider extends React.Component{
                             error: err.error
                         });                
                     });
-                }
+                } 
             })
     }
 

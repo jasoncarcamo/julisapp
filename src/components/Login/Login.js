@@ -2,6 +2,10 @@ import React from "react";
 import {Button, ScrollView, View, TextInput, Text} from "react-native";
 import AdminToken from "../../services/AdminToken/AdminToken";
 import AppContext from "../../services/contexts/AppContext/AppContext";
+import {createStackNavigator} from "@react-navigation/stack";
+import MenuIcon from "../MenuIcon/MenuIcon";
+
+const Stack = createStackNavigator();
 
 export default class Login extends React.Component{
     constructor(props){
@@ -63,39 +67,49 @@ export default class Login extends React.Component{
             })
     }
 
+    renderView = ()=>{
+        return (
+            <View>
+
+                <Text
+                    style={{
+                        textAlign: "center",
+                        marginTop: 30,
+                        marginBottom: 20,
+                        fontSize: 30
+                    }}>Log into your account</Text>
+
+                <TextInput
+                    placeholder="Email"
+                    onChangeText={this.handleEmail}
+                    value={this.state.email}></TextInput>
+
+                <TextInput
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    onChangeText={this.handlePassword}
+                    value={this.state.password}></TextInput>
+
+                <Button
+                    title="Log in"
+                    onPress={this.handleLogin}></Button>
+
+            </View>
+        )
+    }
+
     render(){
         
         return (
-            <ScrollView>
-
-                <View>
-
-                    <Text
-                        style={{
-                            textAlign: "center",
-                            marginTop: 40,
-                            marginBottom: 20,
-                            fontSize: 30
-                        }}>Log into account</Text>
-
-                    <TextInput
-                        placeholder="Email"
-                        onChangeText={this.handleEmail}
-                        value={this.state.email}></TextInput>
-
-                    <TextInput
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        onChangeText={this.handlePassword}
-                        value={this.state.password}></TextInput>
-
-                    <Button
-                        title="Log in"
-                        onPress={this.handleLogin}></Button>
-
-                </View>
-
-            </ScrollView>
+            <Stack.Navigator
+                initialRouteName="Log in">
+                <Stack.Screen
+                    name="Log in"
+                    component={this.renderView}
+                    options={{
+                        headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>
+                    }}></Stack.Screen>
+            </Stack.Navigator>
         )
     }
 }

@@ -58,8 +58,6 @@ export default class AppContainer extends React.Component{
 
           if (finalStatus !== 'granted') {
 
-            alert('Failed to get push token for push notification!');
-
             return;
           }
 
