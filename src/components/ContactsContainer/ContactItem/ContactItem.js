@@ -16,7 +16,7 @@ export default class ContactItem extends React.Component{
     static contextType = AppContext;
 
     componentDidMount(){
-        console.log(this.props.route.params.contact)
+
         this.setState({
             contact: this.props.route.params.contact
         })
@@ -115,7 +115,7 @@ export default class ContactItem extends React.Component{
     };
 
     render(){
-        console.log(this.props)
+        
         return(
             <View 
                 style={ItemStyle.container}>

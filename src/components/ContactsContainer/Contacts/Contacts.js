@@ -67,7 +67,7 @@ export default class Contacts extends React.Component{
     }
 
     render(){
-        console.log(this.props)
+        
         return (
             <ScrollView>
                 
