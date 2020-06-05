@@ -27,23 +27,6 @@ export default class NavMenu extends React.Component{
 
     static contextType = AppContext;
 
-    componentDidMount(){
-    }
-
-    renderLoginView = ()=>{
-        return (
-            <Stack.Navigator
-                initialRouteName="Log in">
-                <Stack.Screen
-                    name="Log in"
-                    component={Login}
-                    options={{
-                        headerRight: ()=> <MenuIcon navigation={this.props.navigation}/>
-                    }}></Stack.Screen>
-            </Stack.Navigator>
-        )
-    }
-
     renderLoggedInOptions = ()=>{
         return (
             <>
@@ -68,11 +51,8 @@ export default class NavMenu extends React.Component{
 
     renderLogIn = ()=>{
         return <Drawer.Screen
-        name="Log in menu"
-        component={this.renderLoginView}
-        options={{
-            title: "Log In"
-        }}></Drawer.Screen>;
+        name="Log In"
+        component={Login}></Drawer.Screen>;
     }
 
     render(){
