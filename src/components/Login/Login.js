@@ -33,8 +33,25 @@ export default class Login extends React.Component{
     };
 
     handleLogin = ()=>{
+        if(!this.state.email){
+            this.setState({
+                error: "Email is required"
+            });
+
+            return;
+        };
+
+        if(!this.state.password){
+            this.setState({
+                error: "Password is required"
+            });
+
+            return;
+        }
+
         this.setState({
-            loading: true
+            loading: true,
+            error: ""
         });
 
         fetch("https://vast-atoll-11346.herokuapp.com/api/login", {
@@ -82,12 +99,7 @@ export default class Login extends React.Component{
                 style={FormStyle.container}>
 
                 <Text
-                    style={{
-                        textAlign: "center",
-                        marginTop: 30,
-                        marginBottom: 20,
-                        fontSize: 30
-                    }}>Log into your account</Text>
+                    style={FormStyle.headerText}>Log into your account</Text>
 
                 <TextInput 
                     style={FormStyle.input}
@@ -118,11 +130,18 @@ const FormStyle = StyleSheet.create({
         alignSelf: "center",
         alignItems: "center",
         transform: [
-            {translateY: - 100}
+            {translateY: - 200}
         ],
-        width: 325,
+        width: 300,
         borderWidth: 2,
         borderColor: "black"
+    },
+    headerText: {
+        textAlign: "center",
+        marginTop: 30,
+        marginBottom: 20,
+        fontSize: 32,
+        paddingHorizontal: 25
     },
     input: {
         width: 250,
@@ -133,16 +152,20 @@ const FormStyle = StyleSheet.create({
     },
     text: {
         textAlign: "center",
-        marginVertical: 10,
+        paddingHorizontal: 20,
+        fontSize: 14,
+        marginTop: 20,
+        marginBottom: 35,
+        color: "red"
     },
     button: {
         width: 150,
         height: 40,
         backgroundColor: "skyblue",
         borderRadius: 4,
-        marginBottom: 25,
+        marginBottom: 45,
         justifyContent: "center",
-        alignItems: "center",
+        alignContent: "center",
         padding: 0
     },
     buttonText: {
@@ -150,7 +173,8 @@ const FormStyle = StyleSheet.create({
         color: "white",
         fontSize: 16,
         margin: 0,
-        textAlignVertical: "center",
+        alignSelf: "center",
+        alignItems: "center",
         justifyContent: "center"
     }
 })
