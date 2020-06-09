@@ -60,9 +60,9 @@ export default class BookDisplay extends React.Component{
                 <Text
                     style={DisplayItem.date}>Date created: {new Date(this.props.book.date_created).toDateString()} {this.renderTime(new Date(this.props.book.date_created))}</Text>
 
-                {this.state.loading ? <Text>Loading</Text> : <Button
+                <Button
                     title="View"
-                    onPress={this.handleView}></Button>}
+                    onPress={this.handleView}></Button>
             </View>
         )
     }

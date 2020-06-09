@@ -70,7 +70,7 @@ export default class ContactItem extends React.Component{
                     })
                     .then( resData => {
                         
-                        this.context.loginAdmin()
+                        this.context.refreshContacts()
                             .then( loggedIn => {
                                 const contact = this.state.contact;
 

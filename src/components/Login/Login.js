@@ -102,6 +102,7 @@ export default class Login extends React.Component{
                     style={FormStyle.headerText}>Log into your account</Text>
 
                 <TextInput 
+            
                     style={FormStyle.input}
                     placeholder="Email"
                     onChangeText={this.handleEmail}
@@ -134,7 +135,8 @@ const FormStyle = StyleSheet.create({
         ],
         width: 300,
         borderWidth: 2,
-        borderColor: "black"
+        borderColor: "black",
+        backgroundColor: "white"
     },
     headerText: {
         textAlign: "center",
@@ -148,7 +150,9 @@ const FormStyle = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         marginVertical: 10,
-        paddingLeft: 10
+        paddingLeft: 10,
+        borderWidth: 0,
+        
     },
     text: {
         textAlign: "center",
@@ -159,10 +163,10 @@ const FormStyle = StyleSheet.create({
         color: "red"
     },
     button: {
-        width: 150,
-        height: 40,
+        width: 200,
+        height: 45,
         backgroundColor: "skyblue",
-        borderRadius: 4,
+        borderRadius: 25,
         marginBottom: 45,
         justifyContent: "center",
         alignContent: "center",

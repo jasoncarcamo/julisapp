@@ -72,7 +72,7 @@ export default class ContactItem extends React.Component{
 
                         book.confirmed = true;
 
-                        this.context.loginAdmin()
+                        this.context.refreshBookings()
                             .then( loggedIn => {
                                 this.setState({
                                     book,

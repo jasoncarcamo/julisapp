@@ -10,7 +10,9 @@ const AppContext = React.createContext({
     bookings: [],
     contacts: [],
     loginAdmin: ()=>{},
-    signoutAdmin: ()=>{}
+    signoutAdmin: ()=>{},
+    refreshContacts: ()=>{},
+    refreshBookings: ()=>{}
 });
 
 export default AppContext;
@@ -105,7 +107,7 @@ export class AppProvider extends React.Component{
 
     loginAdmin = async ()=>{
 
-        AdminToken.hasToken()
+        return AdminToken.hasToken()
             .then( token => {
 
                 this.setState({
@@ -211,14 +213,10 @@ export class AppProvider extends React.Component{
         });
     }
 
-    socketContacts = async (contact) => {
-        const contacts = this.state.contacts;
-
-        contacts.push(contact);
-
+    refreshBookings = async ()=>{
         return AdminToken.getToken()   
         .then( token => {
-            return fetch("https://vast-atoll-11346.herokuapp.com/api/contacts", {
+            return fetch("https://vast-atoll-11346.herokuapp.com/api/bookings", {
                 headers: {
                     'content-type': "application/json",
                     'authorization': `bearer ${token}`
@@ -233,7 +231,7 @@ export class AppProvider extends React.Component{
                 })
                 .then( resData => {
                     return this.setState({
-                        contacts: resData.contacts
+                        bookings: resData.bookings
                     })
                 })
                 .catch( err => {
@@ -242,6 +240,68 @@ export class AppProvider extends React.Component{
                     });
                 })
         });
+    }
+
+    socketContacts = async (contact) => {
+        const contacts = this.state.contacts;
+
+        contacts.push(contact);
+
+        return AdminToken.getToken()   
+            .then( token => {
+                return fetch("https://vast-atoll-11346.herokuapp.com/api/contacts", {
+                    headers: {
+                        'content-type': "application/json",
+                        'authorization': `bearer ${token}`
+                    }
+                })
+                    .then( res => {
+                        if(!res.ok){
+                            return res.json().then( e => Promise.reject(e));
+                        };
+
+                        return res.json();
+                    })
+                    .then( resData => {
+                        return this.setState({
+                            contacts: resData.contacts
+                        })
+                    })
+                    .catch( err => {
+                        return this.setState({
+                            error: err.error
+                        });
+                    })
+            });
+    }
+
+    refreshContacts = ()=>{
+        return AdminToken.getToken()   
+            .then( token => {
+                return fetch("https://vast-atoll-11346.herokuapp.com/api/contacts", {
+                    headers: {
+                        'content-type': "application/json",
+                        'authorization': `bearer ${token}`
+                    }
+                })
+                    .then( res => {
+                        if(!res.ok){
+                            return res.json().then( e => Promise.reject(e));
+                        };
+
+                        return res.json();
+                    })
+                    .then( resData => {
+                        return this.setState({
+                            contacts: resData.contacts
+                        })
+                    })
+                    .catch( err => {
+                        return this.setState({
+                            error: err.error
+                        });
+                    })
+            });
     }
 
     signoutAdmin = async ()=>{
@@ -260,6 +320,8 @@ export class AppProvider extends React.Component{
             contacts: this.state.contacts,
             loginAdmin: this.loginAdmin,
             signoutAdmin: this.signoutAdmin,
+            refreshContacts: this.refreshContacts,
+            refreshBookings: this.refreshBookings
         };
         
         return (

@@ -21,7 +21,7 @@ export default class Contacts extends React.Component{
     renderNewItems = (contacts) => {
         let contactItems = contacts;
 
-        contactItems = contactItems.filter((book, index)=> book.confirmed === false);
+        contactItems = contactItems.filter((contact, index)=> contact.confirmed === false);
 
         if(contactItems.length === 0){
             return (
@@ -30,7 +30,7 @@ export default class Contacts extends React.Component{
             );
         };
 
-        contactItems = contactItems.map((book, index) => book.confirmed === false ? <ContactDisplay key={index} contact={book} navigation={this.props.navigation}></ContactDisplay> : <View></View>);
+        contactItems = contactItems.map(( contact, index) => contact.confirmed === false ? <ContactDisplay key={index} contact={contact} navigation={this.props.navigation}></ContactDisplay> : <View></View>);
 
         return contactItems;
     }
@@ -47,7 +47,7 @@ export default class Contacts extends React.Component{
             );
         };
 
-        contactItems = contactItems.map((contact, index) => contact.confirmed === true ? <ContactDisplay key={index} contact={book} navigation={this.props.navigation}></ContactDisplay> : <View></View>);
+        contactItems = contactItems.map((contact, index) => contact.confirmed === true ? <ContactDisplay key={index} contact={contact} navigation={this.props.navigation}></ContactDisplay> : <View></View>);
 
         return contactItems;
     }
