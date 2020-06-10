@@ -40,7 +40,7 @@ export default class SignOut extends React.Component{
         )
     }
     render(){
-        console.log(this.props)
+        
         return (
             <Stack.Navigator
                 initialRouteName="Sign Out">
@@ -61,8 +61,6 @@ const SignOutStyle = StyleSheet.create({
         height: "100%"
     },
     button: {
-        display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
@@ -75,14 +73,13 @@ const SignOutStyle = StyleSheet.create({
         width: 175,
         height: 45,
         padding: 0,
-        backgroundColor: "black"
+        backgroundColor: "#F6CECE"
     },
     text: {
         margin: 0,
-        paddingBottom: 5,
         fontSize: 16,
         textAlign: "center",
-        color: "red"
+        color: "white"
     }
 })
 

@@ -116,7 +116,7 @@ export default class Login extends React.Component{
 
     unFocus = ()=>{
         Keyboard.dismiss();
-        console.log("Touched")
+        
         this.setState({
             emailFocused: false,
             passwordFocused: false
@@ -152,7 +152,7 @@ export default class Login extends React.Component{
                         value={this.state.email}></TextInput>
 
                     <TextInput
-                    onFocus={this.focusPassword}
+                        onFocus={this.focusPassword}
                         style={{
                             ...FormStyle.input,
                             borderTopColor: "transparent",
@@ -208,7 +208,7 @@ const FormStyle = StyleSheet.create({
     },
     input: {
         width: 250,
-        height: 40,
+        height: 45,
         borderWidth: 1,
         marginVertical: 10,
         paddingLeft: 10,
@@ -239,9 +239,9 @@ const FormStyle = StyleSheet.create({
         color: "red"
     },
     button: {
-        width: 200,
+        width: 250,
         height: 45,
-        backgroundColor: "skyblue",
+        backgroundColor: "#F6CECE",
         borderRadius: 25,
         marginBottom: 45,
         justifyContent: "center",

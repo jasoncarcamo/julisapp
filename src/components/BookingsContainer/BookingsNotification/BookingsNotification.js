@@ -8,9 +8,13 @@ export default class BookingsNotification extends React.Component{
                 style={style.container}>
                 <Text
                     style={style.text}>You have recieved a new booking</Text>
-                <Button
-                    title="View"
-                    onPress={()=>this.props.navigation.navigate("Book Main", { screen: "Bookings"})}></Button>
+
+                <TouchableOpacity
+                    onPress={()=>this.props.navigation.navigate("Book Main", { screen: "Bookings"})}
+                    style={style.button}>
+                    <Text
+                        style={style.buttonText}>View</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -19,15 +23,34 @@ export default class BookingsNotification extends React.Component{
 const style = StyleSheet.create({
     container: {
         width: "100%",
-        height: "100%",
+        height: "100%"
     },
     text: {
+        position: "relative",
+        top: "48%",
         textAlign: "center",
-        marginTop: "50%",
-        marginBottom: 75,
-        fontSize: 16
+        fontSize: 16,
+        transform: [
+            {translateY: -50}
+        ]
     },
     button: {
-
+        width: 250,
+        height: 45,
+        backgroundColor: "#F6CECE",
+        alignSelf: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        top: "50%",
+        textAlign: "center",
+        fontSize: 16,
+        transform: [
+            {translateY: -50}
+        ]
+    },
+    buttonText: {
+        textAlign: "center",
+        color: "white"        
     }
 })

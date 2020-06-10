@@ -2,6 +2,7 @@ import React from "react";
 import {ScrollView, Text, Button, View, StyleSheet, TouchableOpacity} from "react-native";
 import AppContext from "../../../services/contexts/AppContext/AppContext";
 import BookDisplay from "./BookDisplay/BookDisplay";
+import ExpoToken from "../../../services/ExpoToken/ExpoToken";
 
 export default class Contacts extends React.Component{
     constructor(props){
@@ -66,16 +67,30 @@ export default class Contacts extends React.Component{
         })
     }
 
+    removeToken = ()=>{
+        ExpoToken.getToken()
+            .then( token => {
+                
+
+                ExpoToken.deleteToken()
+                .then( deleted => {
+                    return;
+                });
+
+            });
+    }
+
     render(){
         return (
             <ScrollView>
 
                 <View
                     style={ItemsStyle.container}>
+                        
                     <TouchableOpacity
                         style={{
                             ...ItemsStyle.containerButtonNew,
-                            backgroundColor: this.state.viewNew ? "skyblue" : "white",
+                            backgroundColor: this.state.viewNew ? "#F6CECE" : "white",
                             borderWidth: this.state.viewNew ? 0 : 1
                         }}
                         onPress={this.activateNew}>
@@ -89,7 +104,7 @@ export default class Contacts extends React.Component{
                     <TouchableOpacity
                         style={{
                             ...ItemsStyle.containerButtonConfirmed,
-                            backgroundColor: this.state.viewConfirmed ? "skyblue" : "white",
+                            backgroundColor: this.state.viewConfirmed ? "#F6CECE" : "white",
                             borderWidth: this.state.viewConfirmed ? 0 : 1
                         }}
                         onPress={this.activateConfirmed}>

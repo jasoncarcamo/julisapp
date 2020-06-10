@@ -25,19 +25,19 @@ export default class AppContainer extends React.Component{
             .then( adminToken => {
 
                 if(adminToken){
+
                     ExpoToken.getToken()
                         .then( expoToken => {
+                            
                             if(expoToken){
+
                                 this.setState({
                                     expoToken
-                                });
+                                });                                
 
                             } else {
-                                this.registerForPushNotificationsAsync();
+                                this.registerForPushNotificationsAsync();                        
                             }
-
-
-
                             
                             this._notificationSubscription = Notifications.addListener(this._handleNotification);
 
@@ -58,12 +58,12 @@ export default class AppContainer extends React.Component{
           };
 
           if (finalStatus !== 'granted') {
-
+            
             return;
           }
 
           token = await Notifications.getExpoPushTokenAsync();
-
+          
           fetch("https://vast-atoll-11346.herokuapp.com/api/expo", {
               method: "POST",
               headers: {
@@ -81,6 +81,7 @@ export default class AppContainer extends React.Component{
                 return res.json();
             })
             .then( resData => {
+                
                 ExpoToken.saveToken(token)
                 .then( savedToken => {
 
@@ -96,12 +97,16 @@ export default class AppContainer extends React.Component{
                           vibrate: [0, 250, 250, 250],
                         });
                     };
+
+                    return;
                 })
             })
             .catch( err => {
                 this.setState({
                     error: err.error
                 })
+
+                return;
             });
           
         } else {

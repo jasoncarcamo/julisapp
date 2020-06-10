@@ -34,9 +34,13 @@ export default class ContactItem extends React.Component{
                 style={ItemStyle.success}>
                 <Text
                     style={ItemStyle.textStyle}>Confirmed</Text>
-                <Button
-                    title="Ok"
-                    onPress={this.resetItemState}></Button>
+
+                <TouchableOpacity
+                    style={ItemStyle.button}
+                    onPress={this.resetItemState}>
+                    <Text
+                        style={ItemStyle.buttonText}>Ok</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -96,13 +100,19 @@ export default class ContactItem extends React.Component{
         return (
             <View
                 style={ItemStyle.options}>
-                {!this.state.book.confirmed ? <Button
-                    title="Confirm"
-                    onPress={this.handleConfirm}></Button> : <Text style={ItemStyle.confirmed}>Confirmed</Text>}
-                    
-                <Button
-                    title="Close"
-                    onPress={()=>this.props.navigation.goBack()}></Button>
+                {!this.state.book.confirmed ? <TouchableOpacity
+                    style={ItemStyle.button}
+                    onPress={this.handleConfirm}>
+                    <Text
+                        style={ItemStyle.buttonText}>Confirm</Text>
+                </TouchableOpacity> : <Text style={ItemStyle.confirmed}>Confirmed</Text>}
+
+                <TouchableOpacity
+                    style={ItemStyle.button}
+                    onPress={() => this.props.navigation.goBack()}>
+                    <Text
+                        style={ItemStyle.buttonText}>Close</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -111,34 +121,41 @@ export default class ContactItem extends React.Component{
         Linking.openURL(`tel://${this.props.route.params.book.mobile_number}`)
     }
 
+    openEmail = ()=>{
+        Linking.openURL(`mailto:${this.props.route.params.book.email}`)
+    }
+
     render(){
         
         return(
             <View
                 style={ItemStyle.container}>
+                <View
+                    style={ItemStyle.view}>
 
-                
-                <Text
-                    style={ItemStyle.textStyle}>Name: {this.props.route.params.book.name}</Text>
+                    
+                    <Text
+                        style={ItemStyle.textStyle}>Name: {this.props.route.params.book.name}</Text>
 
-                <Text
-                    style={ItemStyle.textStyle}>Mobile number: {this.state.book.mobile_number}</Text>
+                    <Text
+                        style={ItemStyle.textStyle}>Mobile number: <Text style={ItemStyle.open} onPress={this.openMobileNumber}>{this.props.route.params.book.mobile_number}</Text></Text>
 
-                <Text
-                    style={ItemStyle.textStyle}>Email: {this.props.route.params.book.email}</Text>
+                    <Text
+                        style={ItemStyle.textStyle}>Email: <Text style={ItemStyle.open} onPress={this.openEmail}>{this.props.route.params.book.email}</Text></Text>
 
-                <Text
-                    style={ItemStyle.textStyle}>Set for: {new Date(this.props.route.params.book.date).toDateString()} {this.props.route.params.book.time}</Text>
+                    <Text
+                        style={ItemStyle.textStyle}>Set for: {new Date(this.props.route.params.book.date).toDateString()} {this.props.route.params.book.time}</Text>
 
-                <Text
-                    style={ItemStyle.lastText}>Message: {this.props.route.params.book.message}</Text>
+                    <Text
+                        style={ItemStyle.lastText}>Message: {this.props.route.params.book.message}</Text>
 
-                {this.state.confirming && !this.state.confirmSuccess ? <Text style={ItemStyle.loading}>Loading</Text> : <View></View>}
+                    {this.state.confirming && !this.state.confirmSuccess ? <Text style={ItemStyle.loading}>Loading</Text> : <View></View>}
 
-                {!this.state.confirming && !this.state.confirmSuccess ? this.renderOptions() : <View></View>}
+                    {!this.state.confirming && !this.state.confirmSuccess ? this.renderOptions() : <View></View>}
 
-                {!this.state.confirming && this.state.confirmSuccess ? this.renderConfirmSuccess() : <View></View>}
+                    {!this.state.confirming && this.state.confirmSuccess ? this.renderConfirmSuccess() : <View></View>}
 
+                </View>
             </View>
         )
     }
@@ -146,6 +163,11 @@ export default class ContactItem extends React.Component{
 
 const ItemStyle = StyleSheet.create({
     container: {
+        width: "100%",
+        height: "100%",
+        backgroundColor: "white"
+    },
+    view: {
         position: "relative",
         top: "40%",
         transform: [
@@ -153,8 +175,7 @@ const ItemStyle = StyleSheet.create({
         ],
         width: "100%",
         minHeight: "40%",
-        borderBottomWidth: 1,
-        borderBottomColor: "black"
+        backgroundColor: "white"
     },
     loading: {
         textAlign: "center"
@@ -175,9 +196,10 @@ const ItemStyle = StyleSheet.create({
         bottom : 2,
         width: "100%"
     },
-    mobileNumber: {
-        color: "skyblue",
-        textDecorationLine: "underline"
+    open: {
+        color: "#F6CECE",
+        textDecorationLine: "underline",
+        color: "blue"
     },
     textStyle: {
         fontSize: 16,
@@ -202,5 +224,18 @@ const ItemStyle = StyleSheet.create({
         alignSelf: "center",
         paddingVertical: 8,
         textAlignVertical: "center"
+    },
+    button: {
+        width: 100,
+        height: 40,
+        borderRadius: 8,
+        alignSelf: "center",
+        justifyContent: "center",
+        backgroundColor: "#F6CECE"
+    },
+    buttonText: {
+        fontSize: 16,
+        textAlign: "center",
+        color: "white"
     }
 })
