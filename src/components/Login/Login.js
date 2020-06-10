@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, ScrollView, View, TextInput, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {Button, ScrollView, View, TextInput, Text, StyleSheet, TouchableOpacity, Keyboard} from "react-native";
 import AdminToken from "../../services/AdminToken/AdminToken";
 import AppContext from "../../services/contexts/AppContext/AppContext";
 import {createStackNavigator} from "@react-navigation/stack";
@@ -14,6 +14,8 @@ export default class Login extends React.Component{
             email: "",
             password: "",
             loading: false,
+            emailFocused: false,
+            passwordFocused: false,
             error: ""
         }
     }
@@ -33,9 +35,17 @@ export default class Login extends React.Component{
     };
 
     handleLogin = ()=>{
+        this.setState({
+            loading: true,
+            error: ""
+        });
+
         if(!this.state.email){
             this.setState({
-                error: "Email is required"
+                emailFocused: false,
+                passwordFocused: false,
+                error: "Email is required",
+                loading: false
             });
 
             return;
@@ -43,16 +53,14 @@ export default class Login extends React.Component{
 
         if(!this.state.password){
             this.setState({
-                error: "Password is required"
+                emailFocused: false,
+                passwordFocused: false,
+                error: "Password is required",
+                loading: false
             });
 
             return;
         }
-
-        this.setState({
-            loading: true,
-            error: ""
-        });
 
         fetch("https://vast-atoll-11346.herokuapp.com/api/login", {
             method: "POST",
@@ -92,33 +100,77 @@ export default class Login extends React.Component{
             })
     };
 
+    focusEmail = ()=>{
+        this.setState({
+            emailFocused: true,
+            passwordFocused: false
+        })
+    }
+
+    focusPassword = ()=>{
+        this.setState({
+            emailFocused: false,
+            passwordFocused: true
+        })
+    }
+
+    unFocus = ()=>{
+        Keyboard.dismiss();
+        console.log("Touched")
+        this.setState({
+            emailFocused: false,
+            passwordFocused: false
+        });
+    }
+
     render(){
         
         return (
             <View
+                onTouchStart={this.unFocus}
                 style={FormStyle.container}>
 
-                <Text
-                    style={FormStyle.headerText}>Log into your account</Text>
+                <View
+                    onTouchStart={this.unFocus}
+                    style={FormStyle.form}>
 
-                <TextInput 
-            
-                    style={FormStyle.input}
-                    placeholder="Email"
-                    onChangeText={this.handleEmail}
-                    value={this.state.email}></TextInput>
+                    <Text
+                        style={FormStyle.headerText}>Log into your account</Text>
 
-                <TextInput
-                    style={FormStyle.input}
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    onChangeText={this.handlePassword}
-                    value={this.state.password}></TextInput>
+                    <TextInput 
+                        onFocus={this.focusEmail}
+                        style={{
+                            ...FormStyle.input,
+                            borderTopColor: "transparent",
+                            borderRightColor: "transparent",
+                            borderLeftColor: "transparent",
+                            borderBottomColor: this.state.emailFocused ? "black" : "transparent",
+                            borderWidth: 1
+                        }}
+                        placeholder="Email"
+                        onChangeText={this.handleEmail}
+                        value={this.state.email}></TextInput>
 
-                {this.state.error ? <Text style={FormStyle.text}>{this.state.error}</Text> : <Text style={FormStyle.text}></Text>}
+                    <TextInput
+                    onFocus={this.focusPassword}
+                        style={{
+                            ...FormStyle.input,
+                            borderTopColor: "transparent",
+                            borderRightColor: "transparent",
+                            borderLeftColor: "transparent",
+                            borderBottomColor: this.state.passwordFocused ? "black" : "transparent",
+                            borderWidth: 1
+                        }}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        onChangeText={this.handlePassword}
+                        value={this.state.password}></TextInput>
 
-                {this.state.loading ? <Text style={FormStyle.text}>Loading</Text> : <TouchableOpacity style={FormStyle.button} onPress={this.handleLogin}><Text style={FormStyle.buttonText}>Log In</Text></TouchableOpacity>}
+                    {this.state.error ? <Text style={FormStyle.error}>{this.state.error}</Text> : <Text style={FormStyle.text}></Text>}
 
+                    {this.state.loading ? <Text style={FormStyle.loading}>Loading</Text> : <TouchableOpacity style={FormStyle.button} onPress={this.handleLogin}><Text style={FormStyle.buttonText}>Log In</Text></TouchableOpacity>}
+
+                </View>
             </View>
         )
     }
@@ -127,6 +179,14 @@ export default class Login extends React.Component{
 const FormStyle = StyleSheet.create({
     container: {
         position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "white"
+    },
+    form: {
+        position: "relative",
         top: "50%",
         alignSelf: "center",
         alignItems: "center",
@@ -136,6 +196,7 @@ const FormStyle = StyleSheet.create({
         width: 300,
         borderWidth: 2,
         borderColor: "black",
+        borderRadius: 15,
         backgroundColor: "white"
     },
     headerText: {
@@ -155,6 +216,21 @@ const FormStyle = StyleSheet.create({
         
     },
     text: {
+        textAlign: "center",
+        paddingHorizontal: 20,
+        fontSize: 14,
+        marginTop: 20,
+        marginBottom: 35,
+        color: "red"
+    },
+    loading: {
+        textAlign: "center",
+        paddingHorizontal: 20,
+        fontSize: 14,
+        marginTop: 20,
+        marginBottom: 35
+    },
+    error: {
         textAlign: "center",
         paddingHorizontal: 20,
         fontSize: 14,

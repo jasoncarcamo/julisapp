@@ -4,6 +4,7 @@ import ExpoToken from "../services/ExpoToken/ExpoToken";
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
+import {StatusBar} from "react-native";
 
 import AppContext, {AppProvider} from "../services/contexts/AppContext/AppContext";
 
@@ -121,6 +122,7 @@ export default class AppContainer extends React.Component{
         return (
             <AppProvider refresh={this.componentDidMount} navigation={this.props.navigation} expoToken={this.state.expoToken}>
                 <NavMenu/>
+                <StatusBar hidden={true}/>
             </AppProvider>
         )
     }

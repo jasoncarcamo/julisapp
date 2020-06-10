@@ -73,17 +73,31 @@ export default class Contacts extends React.Component{
                 <View
                     style={ItemsStyle.container}>
                     <TouchableOpacity
-                        style={ItemsStyle.containerButton}
+                        style={{
+                            ...ItemsStyle.containerButtonNew,
+                            backgroundColor: this.state.viewNew ? "skyblue" : "white",
+                            borderWidth: this.state.viewNew ? 0 : 1
+                        }}
                         onPress={this.activateNew}>
                         <Text
-                            style={ItemsStyle.containerText}>New</Text>
+                            style={{
+                                ...ItemsStyle.containerText,
+                                color: this.state.viewNew ? "white" : "black"
+                            }}>New</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={ItemsStyle.containerButton}
+                        style={{
+                            ...ItemsStyle.containerButtonConfirmed,
+                            backgroundColor: this.state.viewConfirmed ? "skyblue" : "white",
+                            borderWidth: this.state.viewConfirmed ? 0 : 1
+                        }}
                         onPress={this.activateConfirmed}>
                         <Text
-                            style={ItemsStyle.containerText}>Confirmed</Text>
+                            style={{
+                                ...ItemsStyle.containerText,
+                                color: this.state.viewConfirmed ? "white" : "black"
+                            }}>Confirmed</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -108,12 +122,19 @@ const ItemsStyle = StyleSheet.create({
         width: "100%",
         marginVertical: 40
     },
-    containerButton: {
+    containerButtonNew: {
         width: 115,
         borderWidth: 1,
-        borderColor: "black",
         borderRadius: 4,
         paddingVertical: 5,
+        backgroundColor: "white"
+    },
+    containerButtonConfirmed: {
+        width: 115,
+        borderWidth: 1,
+        borderRadius: 4,
+        paddingVertical: 5,
+        
     },
     containerText: {
         fontSize: 20,
