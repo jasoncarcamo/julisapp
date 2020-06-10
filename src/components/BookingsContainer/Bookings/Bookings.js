@@ -81,12 +81,13 @@ export default class Contacts extends React.Component{
     }
 
     render(){
+        
         return (
             <ScrollView>
 
                 <View
                     style={ItemsStyle.container}>
-                        
+
                     <TouchableOpacity
                         style={{
                             ...ItemsStyle.containerButtonNew,

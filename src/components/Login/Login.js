@@ -144,8 +144,8 @@ export default class Login extends React.Component{
                             borderTopColor: "transparent",
                             borderRightColor: "transparent",
                             borderLeftColor: "transparent",
-                            borderBottomColor: this.state.emailFocused ? "black" : "transparent",
-                            borderWidth: 1
+                            borderBottomColor: this.state.emailFocused ? "black" : "lightgrey",
+                            borderWidth: this.state.emailFocused ? 3 : 1
                         }}
                         placeholder="Email"
                         onChangeText={this.handleEmail}
@@ -158,8 +158,8 @@ export default class Login extends React.Component{
                             borderTopColor: "transparent",
                             borderRightColor: "transparent",
                             borderLeftColor: "transparent",
-                            borderBottomColor: this.state.passwordFocused ? "black" : "transparent",
-                            borderWidth: 1
+                            borderBottomColor: this.state.passwordFocused ? "black" : "lightgrey",
+                            borderWidth: this.state.passwordFocused ? 3 : 1
                         }}
                         placeholder="Password"
                         secureTextEntry={true}

@@ -1,4 +1,5 @@
 import React from "react";
+import {StyleSheet} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {createStackNavigator} from "@react-navigation/stack";
@@ -6,7 +7,8 @@ import AdminToken from "../services/AdminToken/AdminToken";
 import AppContext from "../services/contexts/AppContext/AppContext";
 
 //Import components here
-import MenuIcon from "../components/MenuIcon/MenuIcon";
+import ContactsIcon from "../components/ContactsContainer/ContactsNotification/ContactsIcon";
+import BookingIcon from "../components/BookingsContainer/BookingsNotification/BookingsIcon";
 import Login from "../components/Login/Login";
 import ContactsContainer from "../components/ContactsContainer/ContactsContainer";
 import BookingsContainer from "../components/BookingsContainer/BookingsContainer";
@@ -32,11 +34,17 @@ export default class NavMenu extends React.Component{
             <>
                 <Drawer.Screen
                     name="Bookings Menu"
-                    component={BookingsContainer}></Drawer.Screen>
+                    component={BookingsContainer}                    
+                    options={{
+                        drawerIcon: ({focused}) => <BookingIcon focused={focused} navigation={this.props.navigation}/>
+                    }}></Drawer.Screen>
 
                 <Drawer.Screen
                     name="Contacts Menu"
-                    component={ContactsContainer}></Drawer.Screen>
+                    component={ContactsContainer}
+                    options={{
+                        drawerIcon: ({focused}) => <ContactsIcon focused={focused} navigation={this.props.navigation}/>
+                    }}></Drawer.Screen>
 
                 <Drawer.Screen
                     name="Sign Out Menu"
@@ -56,11 +64,26 @@ export default class NavMenu extends React.Component{
     }
 
     render(){
-        
+
         return (
-            <Drawer.Navigator>
+            <Drawer.Navigator
+                drawerContentOptions={{
+                    activeBackgroundColor: "#F6CECE",
+                    activeTintColor: "white",
+                    inactiveTintColor: "black",
+                    
+                }}>
                     {this.context.isLoggedIn ? this.renderLoggedInOptions() : this.renderLogIn()}
             </Drawer.Navigator>
         )
     }
-}
+};
+
+const NavStyle = StyleSheet.create({
+    screenHightlisht: {
+        backgroundColor: "#F6CECE"
+    },
+    screenText: {
+        color: "white"
+    }
+})

@@ -126,7 +126,7 @@ export default class AppContainer extends React.Component{
         (this.state)
         return (
             <AppProvider refresh={this.componentDidMount} navigation={this.props.navigation} expoToken={this.state.expoToken}>
-                <NavMenu/>
+                <NavMenu navigation={this.props.navigation}/>
                 <StatusBar hidden={true}/>
             </AppProvider>
         )
