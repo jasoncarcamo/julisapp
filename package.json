@@ -12,6 +12,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.1.0",
+    "@expo-google-fonts/playfair-display": "^0.1.0",
     "@expo/vector-icons": "~10.0.6",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/bottom-tabs": "^5.3.1",
