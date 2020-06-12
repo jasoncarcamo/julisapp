@@ -27,7 +27,7 @@ export default class AppContainer extends React.Component{
         };
 
         this.checkForToken();
-        
+
         this._notificationSubscription = Notifications.addListener(this._handleNotification);
     }
 
@@ -49,7 +49,7 @@ export default class AppContainer extends React.Component{
   
             token = await Notifications.getExpoPushTokenAsync();
             
-            return fetch(`http://localhost:8000/api/expo/${token}`, {
+            return fetch(`https://vast-atoll-11346.herokuapp.com/api/expo/${token}`, {
                 headers: {
                     'content-type': "application/json"
                 }

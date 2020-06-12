@@ -32,7 +32,7 @@ export class AppProvider extends React.Component{
 
     async componentDidMount(){
         
-        return AdminToken.hasToken()
+        AdminToken.hasToken()
             .then( token => {
 
                 if(token){
@@ -105,79 +105,77 @@ export class AppProvider extends React.Component{
             })
     }
 
-    loginAdmin = async ()=>{
+    loginAdmin = async (token)=>{
 
-        return AdminToken.hasToken()
-            .then( token => {
+        this.setState({
+            isLoggedIn: true
+        });
+
+        if(!this.socket){
+            this.socket = io("https://vast-atoll-11346.herokuapp.com", { jsonp: false});
+
+            this.socket.on("contact", contact => {
+                
+                this.socketContacts(contact)
+                    .then( refreshed => {
+
+                        this.props.navigation.navigate("Contacts Menu", { screen: "New contacts appointment", initial: false});
+
+                    })
+            });
+
+            this.socket.on("bookings", booking => {
+                
+                this.socketBookings(booking)
+                    .then( refreshed => {
+                        
+                        this.props.navigation.navigate("Bookings Menu", { screen: "New bookings appointment", initial: false});
+
+                    });
+            });
+
+        };
+
+        return Promise.all([fetch("https://vast-atoll-11346.herokuapp.com/api/bookings", {
+            headers: {
+                'content-type': "application/json",
+                'authorization': `bearer ${token}`
+            }
+        }), fetch("https://vast-atoll-11346.herokuapp.com/api/contact", {
+            headers: {
+                'content-type': "application/json",
+                'authorization': `bearer ${token}`
+            }
+        })])
+            .then(([bookingsRes, contactsRes]) => {
+
+                if(!bookingsRes.ok){
+                    return bookingsRes.json().then( e => Promise.reject(e));
+                };
+
+                if(!contactsRes.ok){
+                    return contactsRes.json().then( e => Promise.reject(e));
+                };
+
+                return Promise.all([bookingsRes.json(), contactsRes.json()]);
+            })
+            .then(([bookingsData, contactsData]) => {
 
                 this.setState({
-                    isLoggedIn: true
+                    bookings: bookingsData.bookings,
+                    contacts: contactsData.contacts
                 });
 
-                if(!this.socket){
-                    this.socket = io("https://vast-atoll-11346.herokuapp.com", { jsonp: false});
+                this.props.refresh();
 
-                    this.socket.on("contact", contact => {
-                        
-                        this.socketContacts(contact)
-                            .then( refreshed => {
-
-                                this.props.navigation.navigate("Contacts Menu", { screen: "New contacts appointment", initial: false});
-
-                            })
-                    });
-    
-                    this.socket.on("bookings", booking => {
-                        
-                        this.socketBookings(booking)
-                            .then( refreshed => {
-                                
-                                this.props.navigation.navigate("Bookings Menu", { screen: "New bookings appointment", initial: false});
-
-                            });
-                    });
-
-                };
-        
-                return Promise.all([fetch("https://vast-atoll-11346.herokuapp.com/api/bookings", {
-                    headers: {
-                        'content-type': "application/json",
-                        'authorization': `bearer ${token}`
-                    }
-                }), fetch("https://vast-atoll-11346.herokuapp.com/api/contact", {
-                    headers: {
-                        'content-type': "application/json",
-                        'authorization': `bearer ${token}`
-                    }
-                })])
-                    .then(([bookingsRes, contactsRes]) => {
-        
-                        if(!bookingsRes.ok){
-                            return bookingsRes.json().then( e => Promise.reject(e));
-                        };
-        
-                        if(!contactsRes.ok){
-                            return contactsRes.json().then( e => Promise.reject(e));
-                        };
-        
-                        return Promise.all([bookingsRes.json(), contactsRes.json()]);
-                    })
-                    .then(([bookingsData, contactsData]) => {
-                        
-                        this.props.refresh();
-
-                        return this.setState({
-                            bookings: bookingsData.bookings,
-                            contacts: contactsData.contacts
-                        });
-                    })
-                    .catch( err => {
-        
-                        return this.setState({
-                            error: err.error
-                        });                
-                    });
+                return;
             })
+            .catch( err => {
+
+                return this.setState({
+                    error: err.error
+                });                
+            });
     }
 
     socketBookings = async (book) => {

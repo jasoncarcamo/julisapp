@@ -3,7 +3,7 @@ import {ScrollView, View, Text, Button, TouchableOpacity, StyleSheet} from "reac
 
 export default class BookingsNotification extends React.Component{
     render(){
-        console.log(this.props)
+        
         return (
             <View
                 style={style.container}>

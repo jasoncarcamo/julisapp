@@ -84,12 +84,7 @@ export default class Login extends React.Component{
                 
                 AdminToken.saveToken(resData.token)
                     .then( savedToken => {
-                        this.context.loginAdmin()
-                            .then( loggedIn => {
-                                this.setState({
-                                    loading: false
-                                })
-                            });
+                        this.context.loginAdmin(resData.token);
                     });
             })
             .catch( err => {
