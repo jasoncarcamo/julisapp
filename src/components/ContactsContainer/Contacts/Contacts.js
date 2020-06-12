@@ -69,7 +69,8 @@ export default class Contacts extends React.Component{
     render(){
         
         return (
-            <ScrollView>
+            <ScrollView
+                style={ItemsStyle.scrollContainer}>
                 
                 <View
                     style={ItemsStyle.container}>
@@ -77,7 +78,7 @@ export default class Contacts extends React.Component{
                         style={{
                             ...ItemsStyle.containerButtonNew,
                             backgroundColor: this.state.viewNew ? "#F6CECE" : "white",
-                            borderWidth: this.state.viewNew ? 0 : 1
+                            borderWidth: this.state.viewNew ? 1 : 0
                         }}
                         onPress={this.activateNew}>
                         <Text
@@ -91,7 +92,7 @@ export default class Contacts extends React.Component{
                         style={{
                             ...ItemsStyle.containerButtonConfirmed,
                             backgroundColor: this.state.viewConfirmed ? "#F6CECE" : "white",
-                            borderWidth: this.state.viewConfirmed ? 0 : 1
+                            borderWidth: this.state.viewConfirmed ? 1 : 0
                         }}
                         onPress={this.activateConfirmed}>
                         <Text
@@ -121,21 +122,26 @@ const ItemsStyle = StyleSheet.create({
         justifyContent: "space-evenly",
         flex: 1,
         width: "100%",
+        height: 75,
         marginVertical: 40
     },
-    containerButtonNew: {
-        width: 115,
-        borderWidth: 1,
-        borderRadius: 4,
-        paddingVertical: 5,
+    scrollContainer: {
         backgroundColor: "white"
     },
-    containerButtonConfirmed: {
-        width: 115,
+    containerButtonNew: {
+        width: "50%",
+        height: 50,
         borderWidth: 1,
-        borderRadius: 4,
-        paddingVertical: 5,
-        
+        marginVertical: 12,
+        backgroundColor: "white",
+        justifyContent: "center"
+    },
+    containerButtonConfirmed: {
+        width: "50%",
+        height: 50,
+        borderWidth: 1,
+        marginVertical: 12,
+        justifyContent: "center"
     },
     containerText: {
         fontSize: 20,

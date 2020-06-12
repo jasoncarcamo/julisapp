@@ -10,7 +10,12 @@ export default class ContactsNotification extends React.Component{
                     style={style.text}>You have recieved a new contact.</Text>
 
                 <TouchableOpacity
-                    onPress={()=>this.props.navigation.navigate("Contact Main", { screen: "Contacts"})}
+                    onPress={ () => this.props.navigation.navigate("Contact Main", {
+                        screen: "Contact item",
+                        params: {
+                            contact: this.props.route.params.contact
+                        }
+                    })}
                     style={style.button}>
                     <Text
                         style={style.buttonText}>View</Text>

@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Button, Text, TouchableOpacity, Linking, StyleSheet} from "react-native";
+import { ScrollView,View, Button, Text, TouchableOpacity, Linking, StyleSheet} from "react-native";
 import AdminToken from "../../../services/AdminToken/AdminToken";
 import AppContext from "../../../services/contexts/AppContext/AppContext";
 
@@ -113,7 +113,7 @@ export default class ContactItem extends React.Component{
 
                 <TouchableOpacity
                     style={ItemStyle.button}
-                    onPress={() => this.props.navigation.goBack()}>
+                    onPress={() => this.props.navigation.navigate("Contacts")}>
                     <Text
                         style={ItemStyle.buttonText}>Close</Text>
                 </TouchableOpacity>
@@ -135,7 +135,8 @@ export default class ContactItem extends React.Component{
         return(
             <View
                 style={ItemStyle.container}>
-                <View 
+
+                <ScrollView 
                     style={ItemStyle.view}>
 
                     <Text
@@ -156,7 +157,8 @@ export default class ContactItem extends React.Component{
 
                     {!this.state.confirming && this.state.confirmSuccess ? this.renderConfirmSuccess() : <Text></Text>}
 
-                </View>
+                </ScrollView>
+
             </View>
         )
     }
@@ -166,17 +168,19 @@ const ItemStyle = StyleSheet.create({
     container: {
         width: "100%",
         height: "100%",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        paddingBottom: 40
     },
     view: {
         position: "relative",
-        top: "40%",
+        top: "10%",
         transform: [
             {translateY: -50}
         ],
         width: "100%",
-        minHeight: "40%",
-        backgroundColor: "white"
+        minHeight: "60%",
+        backgroundColor: "white",
+        paddingBottom: 20
     },
     loading: {
         textAlign: "center"
@@ -187,13 +191,15 @@ const ItemStyle = StyleSheet.create({
         justifyContent: "space-evenly",
         position: "absolute",
         bottom : 2,
-        width: "100%"
+        width: "100%",
+        marginTop: 25
     },
     success: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-evenly",
         position: "absolute",
+        marginTop: 25,
         bottom : 2,
         width: "100%"
     },
@@ -211,7 +217,7 @@ const ItemStyle = StyleSheet.create({
         fontSize: 16,
         textAlign: "center",
         marginTop: 5,
-        marginBottom: 55
+        marginBottom: 85
     },
     confirmed: {
         fontSize: 12,

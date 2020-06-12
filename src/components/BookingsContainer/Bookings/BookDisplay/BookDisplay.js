@@ -54,6 +54,10 @@ export default class BookDisplay extends React.Component{
         return(
             <View
                 style={DisplayItem.container}>
+
+                <Text
+                    style={DisplayItem.textName}>{this.props.book.name}</Text>
+
                 <Text
                     style={DisplayItem.text}>Email: {this.props.book.email}</Text>
 
@@ -73,19 +77,32 @@ export default class BookDisplay extends React.Component{
 
 const DisplayItem = StyleSheet.create({
     container: {
-        marginVertical: 10,
+        marginVertical: 15,
         borderWidth: 1,
         borderColor: "lightgrey",
         backgroundColor: "white"
     },
+    textName: {
+        position: "relative",
+        top: 0,
+        fontSize: 19,
+        fontWeight: "bold",
+        marginLeft: 0,
+        paddingVertical: 15,
+        paddingLeft: 30,
+        backgroundColor: "whitesmoke",
+        borderWidth: 0,
+        borderColor: "grey"
+    },
     text: {
-        marginTop: 30,
+        marginTop: 10,
         marginBottom: 7,
         fontSize: 16,
-        textAlign: "center"
+        marginLeft: 30
     },
     date: {
-        textAlign: "center",
+        fontSize: 14,
+        marginLeft: 30,
         marginBottom: 7
     },
     loading: {

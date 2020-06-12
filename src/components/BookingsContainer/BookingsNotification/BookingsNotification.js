@@ -1,8 +1,9 @@
 import React from "react";
-import {View, Text, Button, TouchableOpacity, StyleSheet} from "react-native";
+import {ScrollView, View, Text, Button, TouchableOpacity, StyleSheet} from "react-native";
 
 export default class BookingsNotification extends React.Component{
     render(){
+        console.log(this.props)
         return (
             <View
                 style={style.container}>
@@ -10,7 +11,12 @@ export default class BookingsNotification extends React.Component{
                     style={style.text}>You have recieved a new booking</Text>
 
                 <TouchableOpacity
-                    onPress={()=>this.props.navigation.navigate("Book Main", { screen: "Bookings"})}
+                    onPress={ () => this.props.navigation.navigate("Book Main", { 
+                        screen: "Book item", 
+                        params: {
+                            book: this.props.route.params.book
+                        }
+                    })}
                     style={style.button}>
                     <Text
                         style={style.buttonText}>View</Text>

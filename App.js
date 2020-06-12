@@ -3,6 +3,7 @@ import React from 'react';
 import AppContainer from "./src/AppContainer/AppContainer";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
+
 const Stack = createStackNavigator();
 
 export default class App extends React.Component{

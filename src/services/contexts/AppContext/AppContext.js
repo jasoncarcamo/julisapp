@@ -44,7 +44,7 @@ export class AppProvider extends React.Component{
                         this.socketContacts(contact)
                             .then( refreshed => {
 
-                                this.props.navigation.navigate("Contacts Menu", { screen: "New contacts appointment", initial: false});
+                                this.props.navigation.navigate("Contacts Menu", { screen: "COntact item", params: { contact: contact}});
 
                             })
                     });
@@ -54,7 +54,7 @@ export class AppProvider extends React.Component{
                         this.socketBookings(booking)
                             .then( refreshed => {
                                 
-                                this.props.navigation.navigate("Bookings Menu", { screen: "New bookings appointment", initial: false});
+                                this.props.navigation.navigate("Bookings Menu", { screen: "Book item", params: { book: booking}});
 
                             });
                     });

@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "jasoncarcamo",
     "name": "JulisCleaningCompany",
     "slug": "JulisCleaningCompany",
     "platforms": [
@@ -24,6 +25,10 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.juliscleaingcompany.juliscleaningcompany",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

@@ -5,6 +5,7 @@ import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import {StatusBar} from "react-native";
+import * as Device from "expo-device";
 
 import AppContext, {AppProvider} from "../services/contexts/AppContext/AppContext";
 
@@ -21,31 +22,57 @@ export default class AppContainer extends React.Component{
     }
 
     componentDidMount(){
-        AdminToken.hasToken()
-            .then( adminToken => {
+        if(!Device.brand){
+            return;
+        };
 
-                if(adminToken){
-
-                    ExpoToken.getToken()
-                        .then( expoToken => {
-                            
-                            if(expoToken){
-
-                                this.setState({
-                                    expoToken
-                                });                                
-
-                            } else {
-                                this.registerForPushNotificationsAsync();                        
-                            }
-                            
-                            this._notificationSubscription = Notifications.addListener(this._handleNotification);
-
-
-                        });
-                };
-            })
+        this.checkForToken();
+    
     }
+
+    checkForToken = async ()=>{
+        
+        if (Constants.isDevice) {
+            const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+            let finalStatus = existingStatus;
+  
+            if (existingStatus !== 'granted') {
+              const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+              finalStatus = status;
+            };
+  
+            if (finalStatus !== 'granted') {
+              
+              return;
+            }
+  
+            token = await Notifications.getExpoPushTokenAsync();
+            
+            return fetch(`http://localhost:8000/api/expo/${token}`, {
+                headers: {
+                    'content-type': "application/json"
+                }
+            })
+                .then( res => {
+                    if(!res.ok){
+                        return res.json().then( e => Promise.reject(e));
+                    };
+
+                    return res.json();
+                })
+                .then( resData => {
+                    return this.setState({
+                        expoToken: resData.token
+                    })
+                })
+                .catch( err => {
+                    this.registerForPushNotificationsAsync()
+                        .then( registered => {
+                            this._notificationSubscription = Notifications.addListener(this._handleNotification);
+                        });
+                });
+        }
+    };
 
     registerForPushNotificationsAsync = async () => {
         if (Constants.isDevice) {
@@ -64,7 +91,7 @@ export default class AppContainer extends React.Component{
 
           token = await Notifications.getExpoPushTokenAsync();
           
-          fetch("https://vast-atoll-11346.herokuapp.com/api/expo", {
+          return fetch("https://vast-atoll-11346.herokuapp.com/api/expo", {
               method: "POST",
               headers: {
                   'content-type': "application/json"
@@ -123,7 +150,7 @@ export default class AppContainer extends React.Component{
     };
 
     render(){
-        (this.state)
+        
         return (
             <AppProvider refresh={this.componentDidMount} navigation={this.props.navigation} expoToken={this.state.expoToken}>
                 <NavMenu navigation={this.props.navigation}/>
