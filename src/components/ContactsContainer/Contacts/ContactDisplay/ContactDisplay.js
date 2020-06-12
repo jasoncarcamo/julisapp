@@ -41,6 +41,10 @@ class ContactDisplay extends React.Component{
             typeOfDay = "PM";
         };
 
+        if(hours === 12){
+            typeOfDay = "PM";
+        }
+
         if(minutes < 10){
             minutes = `0${minutes}`;
             

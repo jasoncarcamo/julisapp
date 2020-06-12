@@ -27,7 +27,8 @@ export default class AppContainer extends React.Component{
         };
 
         this.checkForToken();
-    
+        
+        this._notificationSubscription = Notifications.addListener(this._handleNotification);
     }
 
     checkForToken = async ()=>{
@@ -66,10 +67,7 @@ export default class AppContainer extends React.Component{
                     })
                 })
                 .catch( err => {
-                    this.registerForPushNotificationsAsync()
-                        .then( registered => {
-                            this._notificationSubscription = Notifications.addListener(this._handleNotification);
-                        });
+                    this.registerForPushNotificationsAsync();
                 });
         }
     };
