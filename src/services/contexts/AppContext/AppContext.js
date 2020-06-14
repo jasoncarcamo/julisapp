@@ -37,6 +37,10 @@ export class AppProvider extends React.Component{
 
                 if(token){
 
+                    this.setState({
+                        isLoggedIn: true
+                    });
+
                     this.socket = io("https://vast-atoll-11346.herokuapp.com", { jsonp: false});
 
                     this.socket.on("contact", contact => {
@@ -46,7 +50,7 @@ export class AppProvider extends React.Component{
 
                                 this.props.navigation.navigate("Contacts Menu", { screen: "New contacts appointment", params: { contact: contact}});
 
-                            })
+                            });
                     });
     
                     this.socket.on("bookings", booking => {
@@ -57,10 +61,6 @@ export class AppProvider extends React.Component{
                                 this.props.navigation.navigate("Bookings Menu", { screen: "New bookings appointment", params: { book: booking}});
 
                             });
-                    });
-
-                    this.setState({
-                        isLoggedIn: true
                     });
 
 
