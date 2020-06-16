@@ -63,8 +63,12 @@ export default class Contacts extends React.Component{
         this.setState({
             viewNew: false,
             viewConfirmed: true
-        })
-    }
+        });
+    };
+
+    renderLoading = () => {
+        return <Text style={ItemsStyle.contextLoading}>Loading...</Text>
+    };
 
     render(){
         
@@ -105,9 +109,11 @@ export default class Contacts extends React.Component{
                 </View>
 
                 <View>
-                    {this.state.viewNew ? this.renderNewItems(this.context.contacts) : <View></View>}
+                    {this.context.loading ? this.renderLoading() : <View></View>}
 
-                    {this.state.viewConfirmed ? this.renderItems(this.context.contacts) : <View></View>}
+                    {this.state.viewNew && this.context.loading === false ? this.renderNewItems(this.context.contacts) : <View></View>}
+
+                    {this.state.viewConfirmed && this.context.loading === false ? this.renderItems(this.context.contacts) : <View></View>}
                 </View>
     
             </ScrollView>
@@ -156,5 +162,8 @@ const ItemsStyle = StyleSheet.create({
         marginHorizontal: 40,
         fontSize: 16,
         textAlign: "center"
+    },
+    contextLoading: {
+        fontSize: 18
     }
 });

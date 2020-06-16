@@ -12,7 +12,8 @@ const AppContext = React.createContext({
     loginAdmin: ()=>{},
     signoutAdmin: ()=>{},
     refreshContacts: ()=>{},
-    refreshBookings: ()=>{}
+    refreshBookings: ()=>{},
+    loading: false,
 });
 
 export default AppContext;
@@ -26,6 +27,7 @@ export class AppProvider extends React.Component{
             contacts: [],
             loginAdmin: ()=>{},
             signoutAdmin: ()=>{},
+            loading: false,
             error: ""
         }
     }
@@ -63,6 +65,10 @@ export class AppProvider extends React.Component{
                             });
                     });
 
+                    this.setState({
+                        loading: true
+                    });
+
 
                     return Promise.all([fetch("https://vast-atoll-11346.herokuapp.com/api/bookings", {
                     headers: {
@@ -91,14 +97,16 @@ export class AppProvider extends React.Component{
 
                         return this.setState({
                             bookings: bookingsData.bookings,
-                            contacts: contactsData.contacts
+                            contacts: contactsData.contacts,
+                            loading: false
                         });
 
                     })
                     .catch( err => {
         
                         return this.setState({
-                            error: err.error
+                            error: err.error,
+                            loadoing: false
                         });                
                     });
                 } 
@@ -136,6 +144,10 @@ export class AppProvider extends React.Component{
 
         };
 
+        this.setState({
+            loading:true
+        });
+
         return Promise.all([fetch("https://vast-atoll-11346.herokuapp.com/api/bookings", {
             headers: {
                 'content-type': "application/json",
@@ -163,7 +175,8 @@ export class AppProvider extends React.Component{
 
                 this.setState({
                     bookings: bookingsData.bookings,
-                    contacts: contactsData.contacts
+                    contacts: contactsData.contacts,
+                    loading: false
                 });
 
                 this.props.refresh();
@@ -173,7 +186,8 @@ export class AppProvider extends React.Component{
             .catch( err => {
 
                 return this.setState({
-                    error: err.error
+                    error: err.error,
+                    loading: false
                 });                
             });
     }
@@ -319,7 +333,8 @@ export class AppProvider extends React.Component{
             loginAdmin: this.loginAdmin,
             signoutAdmin: this.signoutAdmin,
             refreshContacts: this.refreshContacts,
-            refreshBookings: this.refreshBookings
+            refreshBookings: this.refreshBookings,
+            loading: this.state.loading
         };
         
         return (
