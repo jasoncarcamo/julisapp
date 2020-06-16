@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "828223555886",
+    "firebase_url": "https://juliscleaningcompany.firebaseio.com",
+    "project_id": "juliscleaningcompany",
+    "storage_bucket": "juliscleaningcompany.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828223555886:android:2e4285da464f41d85ed2bf",
+        "android_client_info": {
+          "package_name": "com.juliscleaningcompany"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828223555886-8lv6sf3p96ndhnhj9gktfg9e8gl214vm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDrVg9rsrjrhw00341u0jBROHmWd3eOCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828223555886-8lv6sf3p96ndhnhj9gktfg9e8gl214vm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
