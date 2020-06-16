@@ -86,4 +86,4 @@ const NavStyle = StyleSheet.create({
     screenText: {
         color: "white"
     }
-})
+});
