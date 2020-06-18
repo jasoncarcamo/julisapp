@@ -57,7 +57,7 @@ export default class Contacts extends React.Component{
             viewNew: true,
             viewConfirmed: false
         });
-    }
+    };
 
     activateConfirmed = ()=>{
         this.setState({
