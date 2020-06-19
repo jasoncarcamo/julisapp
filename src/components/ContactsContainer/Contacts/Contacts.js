@@ -50,7 +50,7 @@ export default class Contacts extends React.Component{
         contactItems = contactItems.map((contact, index) => contact.confirmed === true ? <ContactDisplay key={index} contact={contact} navigation={this.props.navigation}></ContactDisplay> : <View></View>);
 
         return contactItems;
-    }
+    };
 
     activateNew = ()=>{
         this.setState({
