@@ -30,7 +30,7 @@ export default class Contacts extends React.Component{
             );
         };
 
-        contactItems = contactItems.map(( contact, index) => contact.confirmed === false ? <ContactDisplay key={index} contact={contact} navigation={this.props.navigation}></ContactDisplay> : <View></View>);
+        contactItems = contactItems.map(( contact, index) => contact.confirmed === false ? <ContactDisplay key={index} contact={contact} navigation={this.props.navigation} new={true}></ContactDisplay> : <View></View>);
 
         return contactItems;
     }

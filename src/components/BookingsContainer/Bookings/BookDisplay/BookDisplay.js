@@ -60,6 +60,9 @@ export default class BookDisplay extends React.Component{
                 style={DisplayItem.container}>
 
                 <Text
+                    style={DisplayItem.newHeader}>{this.props.new ? "New" : ""}</Text>
+
+                <Text
                     style={DisplayItem.textName}>{this.props.book.name}</Text>
 
                 <Text
@@ -82,9 +85,13 @@ export default class BookDisplay extends React.Component{
 const DisplayItem = StyleSheet.create({
     container: {
         marginVertical: 15,
-        borderWidth: 1,
-        borderColor: "lightgrey",
+        borderBottomWidth: 1,
+        borderBottomColor: "lightgrey",
         backgroundColor: "white"
+    },
+    newHeader: {
+        fontSize: 25,
+        textAlign: "center"
     },
     textName: {
         position: "relative",

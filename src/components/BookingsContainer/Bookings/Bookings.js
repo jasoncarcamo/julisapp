@@ -31,7 +31,7 @@ export default class Contacts extends React.Component{
             );
         };
 
-        bookItems = bookItems.map((book, index) => book.confirmed === false ? <BookDisplay key={index} book={book} navigation={this.props.navigation}></BookDisplay> : <View></View>);
+        bookItems = bookItems.map((book, index) => book.confirmed === false ? <BookDisplay key={index} book={book} navigation={this.props.navigation} new={true}></BookDisplay> : <View></View>);
 
         return bookItems;
     }
