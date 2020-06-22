@@ -18,14 +18,13 @@ export default class BookingIcon extends React.Component{
 
         return (
             <TouchableOpacity
-                style={IconStyle.container}
+                style={{
+                    ...IconStyle.container,
+                    backgroundColor: this.unconfirmedAmount(this.context.bookings) > 0 ? "red" : "transparent"
+                }}
                 onPress={() => {}}>
                 <Text
-                    style={{
-                        color: this.props.focused ? "white" : "black",
-                        textAlign: "center",
-                        fontSize: 16
-                    }}>{this.unconfirmedAmount(this.context.bookings) > 0 ? this.unconfirmedAmount(this.context.bookings) : ""}</Text>
+                    style={IconStyle.text}>{this.unconfirmedAmount(this.context.bookings) > 0 ? this.unconfirmedAmount(this.context.bookings) : ""}</Text>
             </TouchableOpacity>
         )
     }
@@ -33,12 +32,16 @@ export default class BookingIcon extends React.Component{
 
 const IconStyle = StyleSheet.create({
     container: {
+        width: 25,
+        height: 25,
         marginLeft: 20,
         marginRight: -20,
         alignSelf: "center",
-        justifyContent: "center",
+        alignItems: "center",
+        justifyContent: "center"
     },
     text: {
-        color: "white"
+        color: "white",
+        fontSize: 16
     }
 });

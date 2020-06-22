@@ -2,6 +2,16 @@ import React from "react";
 import {View, Text, Button, TouchableOpacity, StyleSheet} from "react-native";
 
 export default class ContactsNotification extends React.Component{
+
+    handleView = () => {
+        this.props.navigation.navigate("Contact Main", {
+            screen: "Contact item",
+            params: {
+                contact: this.props.route.params.contact
+            }
+        });
+    }
+    
     render(){
         return (
             <View
@@ -10,12 +20,7 @@ export default class ContactsNotification extends React.Component{
                     style={style.text}>You have recieved a new contact.</Text>
 
                 <TouchableOpacity
-                    onPress={ () => this.props.navigation.navigate("Contact Main", {
-                        screen: "Contact item",
-                        params: {
-                            contact: this.props.route.params.contact
-                        }
-                    })}
+                    onPress={this.handleView}
                     style={style.button}>
                     <Text
                         style={style.buttonText}>View</Text>
