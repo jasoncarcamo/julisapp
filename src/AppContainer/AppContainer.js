@@ -154,6 +154,6 @@ export default class AppContainer extends React.Component{
                 <NavMenu navigation={this.props.navigation}/>
                 <StatusBar hidden={true}/>
             </AppProvider>
-        )
+        );
     }
 }
