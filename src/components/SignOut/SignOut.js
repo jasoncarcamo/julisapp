@@ -27,6 +27,7 @@ export default class SignOut extends React.Component{
             })
     }
     renderView = ()=>{
+        
         return (
             <View
                 style={SignOutStyle.container}>
