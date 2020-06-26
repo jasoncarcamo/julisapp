@@ -1,5 +1,7 @@
 # Julis Cleaning Company mobile app
 
+### Online emulator: https://snack.expo.io/@git/github.com/jasoncarcamo/julisapp/
+
 #### Live site https://juliscleaningcompany.com/
 
 ## Description
