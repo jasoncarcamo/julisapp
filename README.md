@@ -5,7 +5,7 @@
 #### Live site https://juliscleaningcompany.com/
 
 ## Description
-Full stack cleaning service mobile application. For android and coming soon for IOS
+Full stack cleaning service mobile application. For android and coming soon for IOS 
 
 ![Julis cleaning company](/github_images/julis1.png)<br/>
 
