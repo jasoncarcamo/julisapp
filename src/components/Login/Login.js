@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, ScrollView, View, TextInput, Text, StyleSheet, TouchableOpacity, Keyboard} from "react-native";
 import AdminToken from "../../services/AdminToken/AdminToken";
+import ExpoToken from "../../services/ExpoToken/ExpoToken";
 import AppContext from "../../services/contexts/AppContext/AppContext";
 import {createStackNavigator} from "@react-navigation/stack";
 import MenuIcon from "../MenuIcon/MenuIcon";
@@ -24,7 +25,7 @@ export default class Login extends React.Component{
     static contextType = AppContext;
 
     componentDidMount(){
-        AdminToken.getToken()
+        ExpoToken.getToken()
             .then( token => {
                 if(token){
                     this.setState({

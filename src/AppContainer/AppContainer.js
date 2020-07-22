@@ -107,7 +107,7 @@ export default class AppContainer extends React.Component{
             })
             .then( resData => {
                 
-                ExpoToken.saveToken(token)
+                ExpoToken.saveToken(token.data)
                 .then( savedToken => {
 
                     this.setState({
