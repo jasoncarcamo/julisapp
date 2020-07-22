@@ -16,11 +16,23 @@ export default class Login extends React.Component{
             loading: false,
             emailFocused: false,
             passwordFocused: false,
+            token: "",
             error: ""
         }
     }
 
     static contextType = AppContext;
+
+    componentDidMount(){
+        AdminToken.getToken()
+            .then( token => {
+                if(token){
+                    this.setState({
+                        token
+                    })
+                }
+            })
+    }
 
     handleEmail = (text) => {
         this.setState({
@@ -131,6 +143,8 @@ export default class Login extends React.Component{
 
                     <Text
                         style={FormStyle.headerText}>Log into your account</Text>
+
+                    <Text>{this.state.token ? this.state.token : ""}</Text>
 
                     <TextInput 
                         onFocus={this.focusEmail}

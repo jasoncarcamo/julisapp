@@ -1,5 +1,5 @@
 import React from "react";
-import {Vibration} from "react-native";
+import {Vibration, Alert} from "react-native";
 import ExpoToken from "../services/ExpoToken/ExpoToken";
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
@@ -47,9 +47,9 @@ export default class AppContainer extends React.Component{
               return;
             }
   
-            token = await Notifications.getExpoPushTokenAsync();
+            let token = await Notifications.getDevicePushTokenAsync();
             
-            return fetch(`https://vast-atoll-11346.herokuapp.com/api/expo/${token}`, {
+            return fetch(`https://vast-atoll-11346.herokuapp.com/api/expo/${token.data}`, {
                 headers: {
                     'content-type': "application/json"
                 }
@@ -87,7 +87,7 @@ export default class AppContainer extends React.Component{
             return;
           }
 
-          token = await Notifications.getExpoPushTokenAsync();
+          let token = await Notifications.getDevicePushTokenAsync();
           
           return fetch("https://vast-atoll-11346.herokuapp.com/api/expo", {
               method: "POST",
@@ -95,7 +95,7 @@ export default class AppContainer extends React.Component{
                   'content-type': "application/json"
               },
               body: JSON.stringify({
-                  expo_token: token
+                  expo_token: token.data
               })
           })
             .then( res => {
@@ -111,7 +111,7 @@ export default class AppContainer extends React.Component{
                 .then( savedToken => {
 
                     this.setState({
-                        expoToken: token 
+                        expoToken: token.data 
                     });
 
                     if (Platform.OS === 'android') {
